@@ -19,7 +19,7 @@ class App extends React.Component {
     // 2) Save the json data into a variable
     // 3) Save the json data into state
     // 4) use State to pass to the carsData prop.
-   this.state = {cars : []}
+   this.state = {carsList : []}
   }
   componentDidMount = () => {
     const carsJson = [
@@ -32,16 +32,20 @@ class App extends React.Component {
   ];
   this.setState (
     {
-      cars: carsJson.map (car => new Car(car.brand, car.model, car.year, car.km, car.id))
+      carsList: carsJson.map (car => new Car(car.brand, car.model, car.year, car.km, car.id))
     }
   );
-
+  }
+  addCar = (car)=> {
+    this.setState({
+      carsList: this.state.carsList.concat(car)
+    })
   }
 
   render(){
     return (
       <div>
-        <CarsView carsData={this.state.cars}/>
+        <CarsView addCar={this.addCar} carsData={this.state.carsList}/>
       </div>
     );    
   }
